@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Heatmap Baris A / B</title>
+
+<!-- heatmap.js -->
+<script src="https://unpkg.com/heatmap.js@2.0.5/build/heatmap.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #f2f3f5;
+    font-family: Arial, sans-serif;
+}
+
+/* wrapper agar center */
+.wrapper {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* container heatmap */
+#heatmap {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 800px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* label sisi */
+.label {
+    position: absolute;
+    top: 10px;
+    font-weight: bold;
+    color: #666;
+}
+.label.left  { left: 20%; }
+.label.right { right: 20%; }
+
+/* label baris */
+.baris-label {
+    position: absolute;
+    left: 5px;
+    font-size: 11px;
+    color: #999;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div id="heatmap">
+        <div class="label left">A</div>
+        <div class="label right">B</div>
+    </div>
+</div>
+
+<script>
+/* =============================
+   KONFIGURASI DASAR
+============================= */
+const TOTAL_BARIS = 10;
+const TOP_OFFSET = 80;
+const BARIS_GAP = 65;
+
+/* posisi X relatif container */
+function posX(sisi, width) {
+    return sisi === 'A'
+        ? width * 0.30
+        : width * 0.70;
+}
+
+/* konversi baris ke Y */
+function barisToY(baris) {
+    return TOP_OFFSET + (TOTAL_BARIS - baris) * BARIS_GAP;
+}
+
+/* =============================
+   INIT HEATMAP
+============================= */
+const container = document.getElementById('heatmap');
+
+const heatmap = h337.create({
+    container: container,
+    radius: 35,
+    blur: 0.9,
+    maxOpacity: 0.75,
+    minOpacity: 0.15
+});
+
+/* =============================
+   LABEL BARIS (OPTIONAL)
+============================= */
+for (let i = 1; i <= TOTAL_BARIS; i++) {
+    const label = document.createElement('div');
+    label.className = 'baris-label';
+    label.style.top = barisToY(i) + 'px';
+    label.innerText = 'Baris ' + i;
+    container.appendChild(label);
+}
+
+/* =============================
+   AMBIL DATA DARI DATABASE
+============================= */
+fetch('../assets/php/get_heatmap.php')
+.then(res => res.json())
+.then(rows => {
+
+    const rect = container.getBoundingClientRect();
+    const points = [];
+
+    rows.forEach(r => {
+        points.push({
+            x: posX(r.sisi, rect.width),
+            y: barisToY(r.baris),
+            value: r.value
+        });
+    });
+
+    heatmap.setData({
+        max: 100,
+        data: points
+    });
+})
+.catch(err => {
+    console.error('Heatmap error:', err);
+});
+</script>
+
+</body>
+</html>
