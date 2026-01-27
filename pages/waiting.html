@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menunggu Proses</title>
+</head>
+<body style="text-align:center;margin-top:50px;">
+  <h2>Scanning sedang berlangsung</h2>
+  <p>Mohon tunggu <span id="count">30</span> detik...</p>
+
+  <script>
+    let time = 30;
+    const el = document.getElementById("count");
+
+    const timer = setInterval(() => {
+      time--;
+      el.textContent = time;
+
+      if (time <= 0) {
+        clearInterval(timer);
+        // redirect ke dashboard
+        window.location.href = "../pages/dashboard.html";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

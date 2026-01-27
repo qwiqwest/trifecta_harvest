@@ -80,7 +80,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/sign-in.html">
+          <a class="nav-link  " href="../pages/sign-in.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
@@ -96,7 +96,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Sign In</span>
+            <span class="nav-link-text ms-1">Lakukan Scanning</span>
           </a>
         </li>
       </ul>
@@ -134,7 +134,6 @@
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
-                <i class="fa fa-bell cursor-pointer"></i>
               </a>
             </li>
           </ul>
@@ -169,7 +168,7 @@
                   <div class="row">
                     <div class="col-8 text-start">
                       <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
-                        <i class="ni ni-active-40 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                        <i class="fa-solid fa-camera-retro text-primary"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3" id="statusHariIni">-</h5>
                       <span class="text-white text-sm">Hari Ini</span>
@@ -187,10 +186,10 @@
                   <div class="row">
                     <div class="col-8 text-start">
                       <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
-                        <i class="ni ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                        <i class="fa-solid fa-chart-column text-primary"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3" id="hasilSebelumnya">-</h5>
-                      <span class="text-white text-sm">Hasil Terakhir</span>
+                      <span class="text-white text-sm">Terakhir Scan</span>
                     </div>
                   </div>
                 </div>
@@ -203,7 +202,7 @@
                   <div class="row">
                     <div class="col-8 text-start">
                       <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
-                        <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                        <i class="fa-solid fa-chart-column text-primary"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3" id="hasilTerakhir">-</h5>
                       <span class="text-white text-sm">Progress Hasil</span>
@@ -319,17 +318,31 @@
       document.getElementById('statusHariIni').textContent =
         data.status_today ? 'Telah Dilakukan' : 'Belum Dilakukan';
 
-      // HASIL SEBELUM TERAKHIR
+      // SCAN TERAKHIR
       document.getElementById('hasilSebelumnya').textContent =
         data.previous
-          ? `${data.previous.hasil} Baris`
+          ? `${data.previous.waktu_label}`
           : '-';
 
-      // HASIL TERAKHIR (PROGRESS)
-      document.getElementById('hasilTerakhir').textContent =
-        data.last
-          ? `${data.last.hasil} Baris`
-          : '-';
+      if (data.last) {
+
+        let statusText;
+
+        if (data.last.avgA > data.last.avgB) {
+          statusText = 'A lebih banyak';
+        } else if (data.last.avgA < data.last.avgB) {
+          statusText = 'B lebih banyak';
+        } else {
+          statusText = 'A dan B sama';
+        }
+
+        document.getElementById('hasilTerakhir').textContent =
+          `${data.last.waktu_label} (${statusText})`;
+
+      } else {
+        document.getElementById('hasilTerakhir').textContent = '-';
+      }
+
 
     })
     .catch(err => console.error(err));
@@ -450,13 +463,17 @@ fetch('../assets/php/getChartData.php')
 
       data.forEach(item => {
 
-        const statusIcon = item.persentase >= 50
+        const statusIcon = item.avgA >= item.avgB
         ? 'ni ni-check-bold text-success text-gradient'
         : 'ni ni-fat-remove text-danger text-gradient';
 
-        const statusText = item.persentase >= 50
-        ? 'Buah Matang'
-        : 'Buah Belum Matang';
+        const statusText =
+          item.avgA > item.avgB
+            ? 'A lebih banyak'
+            : item.avgA < item.avgB
+              ? 'B lebih banyak'
+              : 'A dan B sama';
+              
 
         timeline.innerHTML += `
           <div class="timeline-block mb-3">
@@ -465,7 +482,7 @@ fetch('../assets/php/getChartData.php')
             </span>
             <div class="timeline-content">
               <h6 class="text-dark text-sm font-weight-bold mb-0">
-                ${item.hasil} Baris, ${statusText}
+                Baris ${statusText}
               </h6>
               <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
                 ${item.waktu_label}
