@@ -255,33 +255,6 @@
             </div>
           </div>
         </div>
-      <div class="row mt-4">
-        <div class="col-lg-5 mb-lg-0 mb-4">
-          <div class="card z-index-2">
-            <div class="card-body p-2">
-              <div class="bg-dark border-radius-md py-3 pe-1 mb-3">
-                <div class="chart">
-                  <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
-                </div>
-              </div>
-              <h6 class="ms-2 mt-4 mb-0"> Scanning Progress </h6>
-              <p class="text-sm ms-2"> (<span class="font-weight-bolder">+3x</span>) dari minggu lalu </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-7">
-          <div class="card z-index-2">
-            <div class="card-header pb-0">
-              <h6>Grafik Pengecekan</h6>
-            </div>
-            <div class="card-body p-3">
-              <div class="chart">
-                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -365,83 +338,6 @@ document.addEventListener('click', function (event) {
 });
 </script>
 
-
-  <script>
-/* =========================
-   BAR CHART – TOTAL SCANNING
-   ========================= */
-fetch('../assets/php/getChartData.php')
-  .then(res => res.json())
-  .then(bar => {
-
-    const ctxBar = document.getElementById("chart-bars").getContext("2d");
-
-    new Chart(ctxBar, {
-      type: "bar",
-      data: {
-        labels: bar.labels,
-        datasets: [{
-          label: "Total Scanning",
-          backgroundColor: "#fff",
-          borderRadius: 4,
-          data: bar.data,
-          maxBarThickness: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: { beginAtZero: true },
-          x: { display: false }
-        }
-      }
-    });
-
-  });
-
-  /* =========================
-    LINE CHART – JUMLAH SCAN
-    ========================= */
-  fetch('../assets/php/getLineChartData.php')
-    .then(res => res.json())
-    .then(line => {
-
-      const ctxLine = document.getElementById("chart-line").getContext("2d");
-
-      const gradient1 = ctxLine.createLinearGradient(0, 230, 0, 50);
-      gradient1.addColorStop(1, 'rgba(203,12,159,0.2)');
-      gradient1.addColorStop(0.2, 'rgba(72,72,176,0)');
-      gradient1.addColorStop(0, 'rgba(203,12,159,0)');
-
-      new Chart(ctxLine, {
-        type: "line",
-        data: {
-          labels: line.labels,
-          datasets: [{
-            label: "Jumlah Scanning",
-            data: line.data,
-            borderColor: "#cb0c9f",
-            backgroundColor: gradient1,
-            fill: true,
-            tension: 0.4,
-            pointRadius: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: true },
-            x: { display: true }
-          }
-        }
-      });
-
-    });
-  </script>
 
   <script>
   fetch('../assets/php/getTimelineData.php')

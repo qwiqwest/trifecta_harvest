@@ -1,26 +1,42 @@
 <?php
 header('Content-Type: application/json');
-$conn = new mysqli("localhost","root","","jeruk");
+include 'koneksi.php';
 
-$sql = "
-  SELECT 
-    baris,
-    sisi,
-    AVG(value) AS value
-    FROM heatmap_scan
-    GROUP BY baris, sisi;
+// ambil data terbaru
+$q = mysqli_query($koneksi, "
+  SELECT * FROM hasil
+  ORDER BY waktu DESC
+  LIMIT 1
+");
 
-";
+$row = mysqli_fetch_assoc($q);
 
-$res = mysqli_query($conn, $sql);
+$points = [];
+$maxValue = 0;
 
-$data = [];
-while ($row = mysqli_fetch_assoc($res)) {
-    $data[] = [
-        'baris' => (int)$row['baris'],
-        'sisi'  => $row['sisi'],
-        'value' => (int)$row['value']
+// BARIS A (y = 1)
+for ($i = 1; $i <= 10; $i++) {
+    $val = (int)$row["a$i"];
+    $points[] = [
+        "x" => $i,
+        "y" => 1,
+        "value" => $val
     ];
+    if ($val > $maxValue) $maxValue = $val;
 }
 
-echo json_encode($data);
+// BARIS B (y = 2)
+for ($i = 1; $i <= 10; $i++) {
+    $val = (int)$row["b$i"];
+    $points[] = [
+        "x" => $i,
+        "y" => 2,
+        "value" => $val
+    ];
+    if ($val > $maxValue) $maxValue = $val;
+}
+
+echo json_encode([
+    "max" => $maxValue,
+    "data" => $points
+]);

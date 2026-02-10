@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Menunggu Proses</title>
+  <link rel="stylesheet" href="../assets/css/load.css">
 </head>
 <body style="text-align:center;margin-top:50px;">
-  <h2>Scanning sedang berlangsung</h2>
-  <p>Mohon tunggu <span id="count">30</span> detik...</p>
-
+  <main>  
+    <section class="title">
+      <h1>Scanning sedang berlangsung</h1>
+      <div class="dots">
+        <div class="dot__item dot__item-1"></div>
+          <div class="dot__item dot__item-2"></div>
+          <div class="dot__item dot__item-3"></div>
+      </div>
+    </section>
+        
+    <section class="progress">
+      <div class="progress__bar"></div>
+    </section>
+      <p>Mohon tunggu <span id="count">30</span> detik...</p>
+  </main>
   <script>
     let time = 30;
     const el = document.getElementById("count");
