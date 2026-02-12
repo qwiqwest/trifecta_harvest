@@ -1,1 +1,1 @@
-Ini merupakan file web trifecta harvest untuk pemantauan kematangan buah jeruk
+Ini merupakan program program dari Tim Trivecta Harvest membauat alat scanning kematangan buah jeruk menggnakan Raspberry Pi, Computer Vision, Rel Gantung

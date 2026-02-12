@@ -193,24 +193,8 @@
                       <th onclick="sortTable('waktu')" class="sortable">Tanggal</th>
                       <th onclick="sortTable('a1')" class="sortable">A1</th>
                       <th onclick="sortTable('a2')" class="sortable">A2</th>
-                      <th onclick="sortTable('a3')" class="sortable">A3</th>
-                      <th onclick="sortTable('a4')" class="sortable">A4</th>
-                      <th onclick="sortTable('a5')" class="sortable">A5</th>
-                      <th onclick="sortTable('a6')" class="sortable">A6</th>
-                      <th onclick="sortTable('a7')" class="sortable">A7</th>
-                      <th onclick="sortTable('a8')" class="sortable">A8</th>
-                      <th onclick="sortTable('a9')" class="sortable">A9</th>
-                      <th onclick="sortTable('a10')" class="sortable">A10</th>
                       <th onclick="sortTable('b1')" class="sortable">B1</th>
                       <th onclick="sortTable('b2')" class="sortable">B2</th>
-                      <th onclick="sortTable('b3')" class="sortable">B3</th>
-                      <th onclick="sortTable('b4')" class="sortable">B4</th>
-                      <th onclick="sortTable('b5')" class="sortable">B5</th>
-                      <th onclick="sortTable('b6')" class="sortable">B6</th>
-                      <th onclick="sortTable('b7')" class="sortable">B7</th>
-                      <th onclick="sortTable('b8')" class="sortable">B8</th>
-                      <th onclick="sortTable('b9')" class="sortable">B9</th>
-                      <th onclick="sortTable('b10')" class="sortable">B10</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -292,27 +276,11 @@
             <td>${row.waktu_label}</td>
             <td>${row.a1}%</td>
             <td>${row.a2}%</td>
-            <td>${row.a3}%</td>
-            <td>${row.a4}%</td>
-            <td>${row.a5}%</td>
-            <td>${row.a6}%</td>
-            <td>${row.a7}%</td>
-            <td>${row.a8}%</td>
-            <td>${row.a9}%</td>
-            <td>${row.a10}%</td>
             <td>${row.b1}%</td>
             <td>${row.b2}%</td>
-            <td>${row.b3}%</td>
-            <td>${row.b4}%</td>
-            <td>${row.b5}%</td>
-            <td>${row.b6}%</td>
-            <td>${row.b7}%</td>
-            <td>${row.b8}%</td>
-            <td>${row.b9}%</td>
-            <td>${row.b10}%</td>
             <td>
-              <a href="../pages/heatmapjs.html" target="_blank">
-                <button class="btn btn-sm btn-primary">Lihat Lokasi</button>
+              <a href="../pages/heatmap.php?id=${row.id}" target="_blank">
+                  <button class="btn btn-sm btn-primary">Lihat Lokasi</button>
               </a>
             </td>
           </tr>`;
