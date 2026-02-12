@@ -11,7 +11,7 @@ $query = mysqli_query($koneksi, "
 
     DATE_FORMAT(waktu, '%d %b %H:%i') AS waktu_label
   FROM hasil
-  ORDER BY `waktu_label` DESC
+  ORDER BY `waktu` DESC
   LIMIT 10
 ");
 

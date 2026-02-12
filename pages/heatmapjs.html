@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Heatmap Baris A / B</title>
+
+<!-- heatmap.js -->
+<script src="https://unpkg.com/heatmap.js@2.0.5/build/heatmap.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #f2f3f5;
+    font-family: Arial, sans-serif;
+}
+
+/* wrapper agar center */
+.wrapper {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* container heatmap */
+#heatmap {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 800px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* label sisi */
+.label {
+    position: absolute;
+    top: 10px;
+    font-weight: bold;
+    color: #666;
+}
+.label.left  { left: 20%; }
+.label.right { right: 20%; }
+
+/* label baris */
+.baris-label {
+    position: absolute;
+    left: 5px;
+    font-size: 11px;
+    color: #999;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div id="heatmap">
+        <div class="label left">A</div>
+        <div class="label right">B</div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/heatmap.js@2.0.5/heatmap.min.js"></script>
+
+<div id="heatmap" style="width:600px;height:150px;"></div>
+
+<script>
+fetch("get_heatmap.php")
+  .then(res => res.json())
+  .then(db => {
+
+    const points = [];
+    const containerWidth  = 600;
+    const containerHeight = 600;
+
+    const colX = {
+      A: containerWidth * 0.25,
+      B: containerWidth * 0.75
+    };
+
+    const rowGap = containerHeight / 11;
+
+    // SECTION A
+    for (let i = 1; i <= 10; i++) {
+      points.push({
+        x: colX.A,
+        y: containerHeight - (i * rowGap),
+        value: db["a" + i]
+      });
+    }
+
+    // SECTION B
+    for (let i = 1; i <= 10; i++) {
+      points.push({
+        x: colX.B,
+        y: containerHeight - (i * rowGap),
+        value: db["b" + i]
+      });
+    }
+
+    heatmapInstance.setData({
+      max: 100,
+      data: points
+    });
+  });
+</script>
+
+
+
+</body>
+</html>

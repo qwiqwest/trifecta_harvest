@@ -24,7 +24,7 @@ $lastQuery = mysqli_query($koneksi, "
 
   DATE_FORMAT(waktu, '%d %b %H:%i') AS waktu_label
   FROM hasil
-  ORDER BY waktu_label DESC
+  ORDER BY `waktu` DESC
   LIMIT 1
 ");
 $last = mysqli_fetch_assoc($lastQuery);
