@@ -75,18 +75,18 @@ if (!$data) { die("Data tidak ditemukan."); }
 
         <div class="label-side">Baris 2</div>
         <div class="drop-zone">
-            <div class="heat-point" id="p-a2"><span class="value-text"><?php echo $data['a2']; ?>%</span></div>
+            <div class="heat-point" id="p-a2"><span class="value-text"><?php echo $data['a2']; ?></span></div>
         </div>
         <div class="drop-zone">
-            <div class="heat-point" id="p-b2"><span class="value-text"><?php echo $data['b2']; ?>%</span></div>
+            <div class="heat-point" id="p-b2"><span class="value-text"><?php echo $data['b2']; ?></span></div>
         </div>
 
         <div class="label-side">Baris 1</div>
         <div class="drop-zone">
-            <div class="heat-point" id="p-a1"><span class="value-text"><?php echo $data['a1']; ?>%</span></div>
+            <div class="heat-point" id="p-a1"><span class="value-text"><?php echo $data['a1']; ?></span></div>
         </div>
         <div class="drop-zone">
-            <div class="heat-point" id="p-b1"><span class="value-text"><?php echo $data['b1']; ?>%</span></div>
+            <div class="heat-point" id="p-b1"><span class="value-text"><?php echo $data['b1']; ?></span></div>
         </div>
     </div>
 
@@ -94,8 +94,8 @@ if (!$data) { die("Data tidak ditemukan."); }
         function getHeatGradient(value) {
             let v = Math.min(Math.max(value, 0), 100);
             // Skema Warna: Biru (Dingin) -> Hijau -> Kuning -> Merah (Panas)
-            if (v < 25) return `radial-gradient(circle, rgba(0,0,255,0.7) 0%, rgba(0,0,255,0) 70%)`;
-            if (v < 50) return `radial-gradient(circle, rgba(0,255,0,0.7) 0%, rgba(255,255,0,0.2) 60%, rgba(255,255,255,0) 75%)`;
+            if (v < 25) return `radial-gradient(circle, rgba(0,255,0,0.7) 0%, rgba(255,255,0,0.2) 60%, rgba(255,255,255,0) 75%)`;
+            if (v < 50) return `radial-gradient(circle, rgba(0,0,255,0.7) 0%, rgba(0,0,255,0) 70%)`;
             if (v < 75) return `radial-gradient(circle, rgba(255,255,0,0.8) 0%, rgba(255,165,0,0.3) 50%, rgba(255,255,255,0) 75%)`;
             return `radial-gradient(circle, rgba(255,0,0,0.8) 0%, rgba(255,255,0,0.4) 40%, rgba(0,0,255,0.1) 60%, rgba(255,255,255,0) 75%)`;
         }
