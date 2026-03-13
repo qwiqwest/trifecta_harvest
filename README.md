@@ -56,9 +56,9 @@ https://smartharvest.online
 
 ## Repository Structure
 
-hardware/ – electrical design, PCB files, and wiring
-software/ – detection model, system control scripts, and dashboard code
-docs/ – system documentation, architecture diagram, and demonstration materials
+* docs/ – system documentation and architecture diagram
+* hardware/ – electrical design, PCB files, and wiring
+* software/ – detection model, system control scripts, and dashboard code
 
 ---
 
@@ -67,6 +67,14 @@ docs/ – system documentation, architecture diagram, and demonstration material
 Python • Raspberry Pi • YOLO • PCB Design • Solar Energy System • Web Dashboard • Cloud Database
 
 ---
+
+## Future Research Direction
+
+This project represents an initial step toward developing autonomous, solar-powered agricultural support systems.
+
+Future work includes the development of a solar-powered automated organic waste composting system designed to convert agricultural waste into sustainable fertilizer through controlled mechanical processing and embedded control logic.
+
+The focus will be on low-energy operation, system reliability, and sustainable off-grid deployment.
 
 **Author**
 
