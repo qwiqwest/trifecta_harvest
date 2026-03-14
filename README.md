@@ -52,6 +52,9 @@ The system consists of three main subsystems:
 Live system interface:
 https://smartharvest.online
 ![System Setup](docs/MP+Pole+panel_box(3).jpg)
+![System Setup](docs/Inside_Panel_Box.jpg)
+![System Setup](docs/Moving_Parts(MP).jpg)
+![System Setup](docs/Inside_MP.jpg)
 ---
 
 ## Repository Structure
