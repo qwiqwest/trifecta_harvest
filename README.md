@@ -49,6 +49,8 @@ The system consists of three main subsystems:
 
 ## Demonstration
 
+Live demonstration:
+https://youtu.be/be947bb0I0M
 Live system interface:
 https://smartharvest.online
 ![System Setup](docs/MP+Pole+panel_box(3).jpg)
